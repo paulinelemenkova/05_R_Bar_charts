@@ -42,7 +42,7 @@ print(df)
 
 nb.cols <- 22
 #mycolors <- colorRampPalette(brewer.pal(8, "Set2"))(nb.cols)
-mycolors <- colorRampPalette(brewer.pal(8, "hsv"))(nb.cols)
+#mycolors <- colorRampPalette(brewer.pal(8, "hsv"))(nb.cols)
 
 p<- ggplot(df, aes(x = Item, y = Value, fill = Item)) +
 #p<- ggplot(df, aes(x = reorder(Item, Value), y = Value, fill = Item)) +
@@ -86,7 +86,6 @@ library(pals)
 require(reshape2)
 
 # Get a color palette from pals
-my_colors <- as.vector(ocean.phase(25)) # Using a pals palette
 
 p<- ggplot(df, aes(x = Item, y = Value, fill = Item)) +
 #p<- ggplot(df, aes(x = reorder(Item, Value), y = Value, fill = Item)) +
@@ -94,6 +93,9 @@ p<- ggplot(df, aes(x = Item, y = Value, fill = Item)) +
     geom_bar(stat="identity", width=0.9) +
     geom_text(aes(label = Value), vjust = 2, colour = "white", size = 2.5) +
 scale_y_continuous(breaks = seq(0, 20000, by = 1000)) +
+guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis(),
+    cap = "both") +
+#scale_x_continuous(guide = guide_axis(n.dodge = 2)) +
 scale_fill_manual(values = as.vector(gnuplot(22))) +
 #scale_fill_manual(values = as.vector(isol(22))) +
 #scale_fill_manual(values = as.vector(linearlhot(22))) +
@@ -111,12 +113,15 @@ theme(
     legend.text = element_text(size = 9),
     legend.title = element_text(size = 13),
     plot.title = element_text(size = 14),
-    plot.subtitle = element_text(size = 12),
-    axis.title.x = element_text(size = 12),
+    plot.subtitle = element_text(size = 12,
+        margin = margin(t = 10, unit = "pt")),
+    axis.title.x = element_text(size = 12,
+        margin = margin(t = 10, unit = "pt")),
     axis.title.y = element_text(size = 12),
-    axis.ticks.length = unit(.1,"cm"),
+    axis.ticks.length.x = unit(0.2,"cm"),
+    axis.ticks.length.y = unit(0.2,"cm"),
     axis.text.x = element_text(face = 3, color = "black",
-        size = 9, angle = 15),
+        size = 9, angle = 10),
     axis.text.y = element_text(face = 3, color = "black",
         size = 10, angle = 0)
     ) +
